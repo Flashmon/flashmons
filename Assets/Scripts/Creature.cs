@@ -46,7 +46,6 @@ public class Creature : MonoBehaviour {
         myGameObjects.tintTest.color = tintColor;
         myGameObjects.eyeTest.color = eyeColor;
 
-        /*
         for (int i = 0; i < myGameObjects.baseSprites.Length; i++)
         {
             myGameObjects.baseSprites[i].color = baseColor;
@@ -59,7 +58,6 @@ public class Creature : MonoBehaviour {
         {
             myGameObjects.eyeSprites[i].color = eyeColor;
         }
-        */
     }
 
     Color randomColor()
