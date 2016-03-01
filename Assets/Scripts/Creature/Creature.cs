@@ -12,6 +12,9 @@ public class Creature : MonoBehaviour {
     public int defense;
     public int speed;
 
+    [Header("Current HP")]
+    public int currentHealth;
+
     [Header("Color")]
     public Color baseColor;
     public Color tintColor;
@@ -22,8 +25,9 @@ public class Creature : MonoBehaviour {
 
     public Creature_Stats myStats;
     public Creature_GameObjects myGameObjects;
+    public Creature_Attack[] myAttacks;
 
-	public void Initialize()
+    public void Initialize()
     {
         // get values from stats object
         creatureName = myStats.creatureName;
@@ -41,22 +45,29 @@ public class Creature : MonoBehaviour {
 
         // setup sprites
 
-        // test sprites
-        myGameObjects.baseTest.color = baseColor;
-        myGameObjects.tintTest.color = tintColor;
-        myGameObjects.eyeTest.color = eyeColor;
-
-        for (int i = 0; i < myGameObjects.baseSprites.Length; i++)
+        for (int i = 0; i < myGameObjects.baseSpritesRaising.Length; i++)
         {
-            myGameObjects.baseSprites[i].color = baseColor;
+            myGameObjects.baseSpritesRaising[i].color = baseColor;
         }
-        for (int i = 0; i < myGameObjects.tintSprites.Length; i++)
+        for (int i = 0; i < myGameObjects.tintSpritesRaising.Length; i++)
         {
-            myGameObjects.tintSprites[i].color = tintColor;
+            myGameObjects.tintSpritesRaising[i].color = tintColor;
         }
-        for (int i = 0; i < myGameObjects.eyeSprites.Length; i++)
+        for (int i = 0; i < myGameObjects.eyeSpritesRaising.Length; i++)
         {
-            myGameObjects.eyeSprites[i].color = eyeColor;
+            myGameObjects.eyeSpritesRaising[i].color = eyeColor;
+        }
+        for (int i = 0; i < myGameObjects.baseSpritesBattle.Length; i++)
+        {
+            myGameObjects.baseSpritesBattle[i].color = baseColor;
+        }
+        for (int i = 0; i < myGameObjects.tintSpritesBattle.Length; i++)
+        {
+            myGameObjects.tintSpritesBattle[i].color = tintColor;
+        }
+        for (int i = 0; i < myGameObjects.eyeSpritesBattle.Length; i++)
+        {
+            myGameObjects.eyeSpritesBattle[i].color = eyeColor;
         }
     }
 
