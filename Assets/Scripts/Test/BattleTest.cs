@@ -180,7 +180,7 @@ public class BattleTest : MonoBehaviour {
                 defender.GetComponent<Animator>().SetTrigger("hit");
                 screenShake.ScreenShake(10f);
                 defender.GetComponent<Rigidbody2D>().AddForce(new Vector2(500*defender.transform.localScale.x,0));
-                hitPause.HitPause();
+                hitPause.HitPause(0.1f);
                 Debug.Log(attacker.name + " equals " + creatureA.name);
                 if (attacker.name == creatureA.name)
                 {

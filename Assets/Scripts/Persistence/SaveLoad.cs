@@ -7,20 +7,36 @@ using System.IO;
 public static class SaveLoad
 {
 
-    public static List<Creature> creatures;
-
-    //public static Creature_Stats currentStats;
-
-    public static void Save()
+    public static void LoadGameSaves()
     {
-        //HighScoresManager.highScores = UserScore.current;
+        if (File.Exists(Application.persistentDataPath + "/gamesaves.fmns"))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/gamesaves.fmns", FileMode.Open);
+            SavedGames s = (SavedGames)bf.Deserialize(file);
+            file.Close();
+            if (s.saves != null && s.saves.Count > 0)
+            {
+                Debug.Log("loading saves");
+                SavedGames.currentSaves.saves = s.saves;
+            }
+            else
+            {
+                Debug.Log("no saves to load");
+            }
+        }
+    }
+
+    public static void SaveGameSaves()
+    {
+        SavedGames saves = SavedGames.currentSaves;
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/savedGames.gd");
-        bf.Serialize(file, SaveLoad.creatures);
+        FileStream file = File.Create(Application.persistentDataPath + "/gamesaves.fmns");
+        bf.Serialize(file, saves);
         file.Close();
     }
 
-    public static void Save(Creature c)
+    public static void SaveCreature(Creature c)
     {
         Creature_Stats creature = c.myStats;
         BinaryFormatter bf = new BinaryFormatter();
@@ -29,7 +45,7 @@ public static class SaveLoad
         file.Close();
     }
 
-    public static Creature_Stats Load(string s)
+    public static Creature_Stats LoadCreature(string s)
     {
         if (File.Exists(Application.persistentDataPath + "/" + s + ".creature"))
         {

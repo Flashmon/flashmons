@@ -7,6 +7,7 @@ public class ReturnToMain : MonoBehaviour {
 	void Update () {
 	    if (Input.GetKeyDown(KeyCode.Escape))
         {
+            SaveLoad.SaveGameSaves();
             Application.LoadLevel(0);
         }
 	}

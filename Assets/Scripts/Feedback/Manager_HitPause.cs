@@ -3,16 +3,22 @@ using System.Collections;
 
 public class Manager_HitPause : MonoBehaviour {
 
-	public void HitPause()
+    public void HitPause(float duration)
     {
         Time.timeScale = 0.0001f;
-        StartCoroutine(EndPause());
+        StartCoroutine(EndPause(duration));
     }
 
-    IEnumerator EndPause()
+    IEnumerator EndPause(float duration)
     {
-        yield return new WaitForSeconds(0.03f * Time.timeScale);
-        Time.timeScale = 1;
+        float timer = 0f;
+        while (timer < duration)
+        {
+            timer += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        Time.timeScale = 1f;
     }
 
 }

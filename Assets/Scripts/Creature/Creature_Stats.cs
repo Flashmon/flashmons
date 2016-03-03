@@ -17,6 +17,14 @@ public class Creature_Stats {
 
     public int[] specialFeatures;
 
+    public status creatureStatus;
+
+    public enum status
+    {
+        Creature,
+        Gene
+    }
+
     public void SetColors()
     {
         baseColor = RandomColor();
