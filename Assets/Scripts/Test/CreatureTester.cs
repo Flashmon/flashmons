@@ -29,29 +29,33 @@ public class CreatureTester : MonoBehaviour {
 
     public void OpenLoadButton()
     {
-        //get rid of old UI stuff
-        List<GameObject> children = new List<GameObject>();
-        for (int i = 0; i < loadPanelContent.transform.childCount; i++)
+        if (GameSave.current.creatures.Count != 0)
         {
-            children.Add(loadPanelContent.transform.GetChild(i).gameObject);
-        }
-        for (int i = children.Count; i > 0; i--)
-        {
-            Destroy(children[i-1]);
-        }
-        children.Clear();
+            //get rid of old UI stuff
+            List<GameObject> children = new List<GameObject>();
+            for (int i = 0; i < loadPanelContent.transform.childCount; i++)
+            {
+                children.Add(loadPanelContent.transform.GetChild(i).gameObject);
+            }
+            for (int i = children.Count; i > 0; i--)
+            {
+                Destroy(children[i - 1]);
+            }
+            children.Clear();
 
-        load.SetActive(false);
-        generation.SetActive(false);
-        loadPanel.SetActive(true);
-        for (int i = 0; i < GameSave.current.creatures.Count; i++)
-        {
-            loadPanelContent.GetComponent<RectTransform>().sizeDelta = new Vector2(loadPanelContent.GetComponent<RectTransform>().sizeDelta.x, 200 + (i * 200));
-            GameObject c = Instantiate(creaturePanel);
-            c.transform.SetParent(loadPanelContent.transform, false);
-            c.transform.localPosition = new Vector2(0,0);
-            c.GetComponent<Creature_UI>().stats = GameSave.current.creatures[i];
-            c.GetComponent<Creature_UI>().InitUI();
+            //create new UI
+            load.SetActive(false);
+            generation.SetActive(false);
+            loadPanel.SetActive(true);
+            for (int i = 0; i < GameSave.current.creatures.Count; i++)
+            {
+                loadPanelContent.GetComponent<RectTransform>().sizeDelta = new Vector2(loadPanelContent.GetComponent<RectTransform>().sizeDelta.x, 200 + (i * 200));
+                GameObject c = Instantiate(creaturePanel);
+                c.transform.SetParent(loadPanelContent.transform, false);
+                c.transform.localPosition = new Vector2(0, 0);
+                c.GetComponent<Creature_UI>().stats = GameSave.current.creatures[i];
+                c.GetComponent<Creature_UI>().InitUI();
+            }
         }
     }
 
