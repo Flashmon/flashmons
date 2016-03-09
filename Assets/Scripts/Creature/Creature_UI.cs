@@ -13,6 +13,7 @@ public class Creature_UI : MonoBehaviour {
     public Creature_Stats stats;
 
     public CreatureTester tester;
+    public Battle_Manager battleManager;
 
     public void InitUI()
     {
@@ -22,11 +23,18 @@ public class Creature_UI : MonoBehaviour {
             baseImages[i].color = new Color(stats.baseColor[0]/255, stats.baseColor[1] / 255, stats.baseColor[2] / 255);
             tintImages[i].color = new Color(stats.tintColor[0/255] / 255, stats.tintColor[1] / 255, stats.tintColor[2] / 255);
         }
-        tester = GameObject.FindObjectOfType<CreatureTester>();
+        if (FindObjectOfType<CreatureTester>())
+        {
+            tester = FindObjectOfType<CreatureTester>();
+        }
+        if (FindObjectOfType<Battle_Manager>())
+        {
+            battleManager = FindObjectOfType<Battle_Manager>();
+        }
         nameText.text = stats.creatureName;
     }
 
-    public void LoadCreature()
+    public void LoadCreatureUI()
     {
         Creature loadedCreature = Instantiate(tester.creature);
         loadedCreature.myStats = stats;
@@ -35,5 +43,30 @@ public class Creature_UI : MonoBehaviour {
         tester.deletion.SetActive(true);
         tester.store.SetActive(true);
         tester.loadPanel.SetActive(false);
+        loadedCreature.myGameObjects.battleSprites.SetActive(false);
+        loadedCreature.myGameObjects.raisingSprites.SetActive(true);
+    }
+
+    public void LoadCreatureBattle()
+    {
+        Creature loadedCreature = Instantiate(battleManager.creaturePrefab).GetComponent<Creature>();
+        loadedCreature.myStats = stats;
+        loadedCreature.Initialize();
+        if (battleManager.creatureA == null)
+        {
+            battleManager.creatureA = loadedCreature;
+            battleManager.creatureA.transform.position = battleManager.creatureAStartPos;
+            battleManager.creatureA.transform.localScale = new Vector3(-1, 1, 1);
+            loadedCreature.myGameObjects.battleSprites.SetActive(true);
+            loadedCreature.myGameObjects.raisingSprites.SetActive(false);
+        }
+        else if (battleManager.creatureB == null)
+        {
+            battleManager.creatureB = loadedCreature;
+            battleManager.creatureB.transform.position = battleManager.creatureBStartPos;
+            battleManager.StartBattle();
+            loadedCreature.myGameObjects.battleSprites.SetActive(true);
+            loadedCreature.myGameObjects.raisingSprites.SetActive(false);
+        }
     }
 }

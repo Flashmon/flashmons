@@ -8,7 +8,13 @@ public class ReturnToMain : MonoBehaviour {
 	    if (Input.GetKeyDown(KeyCode.Escape))
         {
             SaveLoad.SaveGameSaves();
+            Application.LoadLevel(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            SaveLoad.SaveGameSaves();
             Application.LoadLevel(0);
         }
-	}
+    }
 }

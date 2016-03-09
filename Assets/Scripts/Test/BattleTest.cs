@@ -125,16 +125,17 @@ public class BattleTest : MonoBehaviour {
             Debug.Log(Vector3.Distance(attacker.transform.position, defender.transform.position));
             attacker.GetComponent<Animator>().SetTrigger("punch");
 
+            
             yield return new WaitForSeconds(.8f);
-            if (defender.currentHealth <= (attacker.attack - (defender.defense / 2) + 1))
+            /*if (defender.currentHealth <= (attacker.attack - (defender.defense / 2) + 1))
             {
                 Debug.Log(attacker.name + " is gonna kill!");
                 slowMo.SlowMo(0.1f, 0.5f, 2f);
-            }
+            }*/
 
             yield return new WaitForSeconds(.37f);
-            defender.currentHealth = defender.currentHealth - (attacker.attack - (defender.defense / 2) + 1);
-            if (defender.currentHealth <= 0)
+            //defender.currentHealth = defender.currentHealth - (attacker.attack - (defender.defense / 2) + 1);
+            /*if (defender.currentHealth <= 0)
             {
                 Debug.Log(defender + " is dead!");
                 creatureA.GetComponent<Animator>().ResetTrigger("punch");
@@ -217,7 +218,7 @@ public class BattleTest : MonoBehaviour {
                     Debug.LogError("oops");
                 }
                 yield break;
-            }
+            }*/
 
         }
     }

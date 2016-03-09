@@ -112,6 +112,9 @@ public class CreatureTester : MonoBehaviour {
         // set reference
         currentCreature = newCreature;
 
+        currentCreature.myGameObjects.raisingSprites.SetActive(true);
+        currentCreature.myGameObjects.battleSprites.SetActive(false);
+
         // activate name input
         nameInput.SetActive(true);
     }

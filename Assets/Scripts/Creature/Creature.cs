@@ -7,13 +7,10 @@ public class Creature : MonoBehaviour {
     public string creatureName;
 
     [Header("Stats")]
-    private int health;
+    public int health;
     public int attack;
     public int defense;
     public int speed;
-
-    [Header("Current HP")]
-    public int currentHealth;
 
     [Header("Color")]
     public Color baseColor;
@@ -25,6 +22,7 @@ public class Creature : MonoBehaviour {
 
     public Creature_Stats myStats;
     public Creature_GameObjects myGameObjects;
+    public Creature_Battle myBattle;
     public Creature_Attack[] myAttacks;
 
     public void Initialize()
@@ -69,6 +67,8 @@ public class Creature : MonoBehaviour {
         {
             myGameObjects.eyeSpritesBattle[i].color = eyeColor;
         }
+
+        myBattle.creature = this.GetComponent<Creature>();
     }
 
     Color randomColor()
