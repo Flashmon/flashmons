@@ -39,14 +39,14 @@ public class Battle_Manager : MonoBehaviour {
             {
                 case Creature_Battle.CreatureBattleState.Start:
                     creatureA.myBattle.currentState = Creature_Battle.CreatureBattleState.Move;
-                    creatureA.myBattle.battleAnimator.SetTrigger("move");
+                    creatureA.myBattle.battleAnimator.SetTrigger("walk");
                     break;
 
                 case Creature_Battle.CreatureBattleState.Move:
-                    if (Vector2.Distance(creatureA.transform.position,creatureB.transform.position) > creatureA.myBattle.attackDistance)
+                    if (Vector2.Distance(creatureA.transform.position,creatureB.transform.position) < creatureA.myBattle.attackDistance)
                     {
                         creatureA.myBattle.currentState = Creature_Battle.CreatureBattleState.Attack;
-                        creatureA.myBattle.battleAnimator.SetTrigger("attack");
+                        creatureA.myBattle.battleAnimator.SetTrigger("punch");
                     }
                     creatureA.transform.position = Vector2.MoveTowards(creatureA.transform.position, creatureB.transform.position, 1*Time.deltaTime);
                     break;

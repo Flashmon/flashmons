@@ -64,9 +64,9 @@ public class Creature_UI : MonoBehaviour {
         {
             battleManager.creatureB = loadedCreature;
             battleManager.creatureB.transform.position = battleManager.creatureBStartPos;
-            battleManager.StartBattle();
             loadedCreature.myGameObjects.battleSprites.SetActive(true);
             loadedCreature.myGameObjects.raisingSprites.SetActive(false);
+            battleManager.StartBattle();
         }
     }
 }
