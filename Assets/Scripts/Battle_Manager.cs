@@ -26,6 +26,12 @@ public class Battle_Manager : MonoBehaviour {
     public Vector2 creatureAStartPos;
     public Vector2 creatureBStartPos;
 
+    public Manager_ScreenShake screenShake;
+    public Manager_SlowMotion slowMo;
+    public Manager_HitPause hitPause;
+
+    public GameObject _particle;
+
     void Awake()
     {
         currentState = Battle_Manager_State.Pre;
@@ -154,12 +160,22 @@ public class Battle_Manager : MonoBehaviour {
 
     IEnumerator CreatureAAttack()
     {
-        yield return new WaitForSeconds(0.4f);
+        if(creatureB.myBattle.currentHealth == 10)
+        {
+            slowMo.SlowMo(0.1f, 0.5f, 2f);
+            creatureB.myBattle.punchSound.volume = 0;
+        }
+        yield return new WaitForSeconds(0.2f);
+        creatureB.myBattle.punchSound.Play();
+        yield return new WaitForSeconds(0.2f);
         if (creatureA.myBattle.currentState == Creature_Battle.CreatureBattleState.Attack)
         {
             creatureB.myBattle.currentHealth -= 10;
             if (creatureB.myBattle.currentHealth <= 0)
             {
+                screenShake.ScreenShake(10f);
+                GameObject _temp = Instantiate(_particle);
+                _temp.transform.position = creatureB.transform.position;
                 creatureB.myBattle.battleAnimator.SetTrigger("death");
                 creatureB.myBattle.currentState = Creature_Battle.CreatureBattleState.Dead;
                 creatureA.myBattle.battleAnimator.ResetTrigger("walk");
@@ -174,6 +190,9 @@ public class Battle_Manager : MonoBehaviour {
             {
                 creatureB.myBattle.currentState = Creature_Battle.CreatureBattleState.Knockback;
                 creatureB.myBattle.battleAnimator.SetTrigger("hit");
+                GameObject _temp = Instantiate(_particle);
+                _temp.transform.position = creatureB.transform.position;
+                screenShake.ScreenShake(10f);
                 creatureB.GetComponent<Rigidbody2D>().AddForce(new Vector2(100, 0));
                 creatureA.myBattle.battleAnimator.SetTrigger("idle");
             }
@@ -187,13 +206,23 @@ public class Battle_Manager : MonoBehaviour {
     
     IEnumerator CreatureBAttack()
     {
-        yield return new WaitForSeconds(0.4f);
+        if (creatureA.myBattle.currentHealth == 10)
+        {
+            slowMo.SlowMo(0.1f, 0.5f, 2f);
+            creatureB.myBattle.punchSound.volume = 0;
+        }
+        yield return new WaitForSeconds(0.2f);
+        creatureB.myBattle.punchSound.Play();
+        yield return new WaitForSeconds(0.2f);
         if (creatureB.myBattle.currentState == Creature_Battle.CreatureBattleState.Attack)
         {
             creatureA.myBattle.currentHealth -= 10;
             if(creatureA.myBattle.currentHealth <= 0)
             {
+                screenShake.ScreenShake(10f);
                 creatureA.myBattle.battleAnimator.SetTrigger("death");
+                GameObject _temp = Instantiate(_particle);
+                _temp.transform.position = creatureA.transform.position;
                 creatureA.myBattle.currentState = Creature_Battle.CreatureBattleState.Dead;
                 creatureB.myBattle.battleAnimator.ResetTrigger("walk");
                 creatureB.myBattle.battleAnimator.ResetTrigger("punch");
@@ -207,6 +236,9 @@ public class Battle_Manager : MonoBehaviour {
             {
                 creatureA.myBattle.currentState = Creature_Battle.CreatureBattleState.Knockback;
                 creatureA.myBattle.battleAnimator.SetTrigger("hit");
+                GameObject _temp = Instantiate(_particle);
+                _temp.transform.position = creatureA.transform.position;
+                screenShake.ScreenShake(10f);
                 creatureA.GetComponent<Rigidbody2D>().AddForce(new Vector2(-100, 0));
                 creatureB.myBattle.battleAnimator.SetTrigger("idle");
             }

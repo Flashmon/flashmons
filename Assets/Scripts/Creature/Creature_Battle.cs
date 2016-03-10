@@ -20,6 +20,8 @@ public class Creature_Battle : MonoBehaviour {
 
     public int iterator = 0;
 
+    public AudioSource punchSound;
+
     public enum CreatureBattleState
     {
         Start,
