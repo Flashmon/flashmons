@@ -211,7 +211,7 @@ public class Battle_Manager : MonoBehaviour {
             slowMo.SlowMo(0.1f, 0.5f, 2f);
             creatureB.myBattle.punchSound.volume = 0;
         }
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.3f);
         creatureB.myBattle.punchSound.Play();
         yield return new WaitForSeconds(0.2f);
         if (creatureB.myBattle.currentState == Creature_Battle.CreatureBattleState.Attack)
